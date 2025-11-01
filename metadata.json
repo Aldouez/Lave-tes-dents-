@@ -1,0 +1,5 @@
+{
+  "name": "Minuteur de Brossage de Dents",
+  "description": "Une application web amusante et colorée pour aider les enfants à se brosser les dents pendant la durée recommandée de deux minutes.",
+  "requestFramePermissions": []
+}
