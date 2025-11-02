@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import TimerCircle from './components/TimerCircle';
+import MouthDiagram from './components/MouthDiagram';
+import ToothCharacter from './components/ToothCharacter';
 import PlayIcon from './components/icons/PlayIcon';
 import PauseIcon from './components/icons/PauseIcon';
 import ResetIcon from './components/icons/ResetIcon';
@@ -55,8 +57,8 @@ const App: React.FC = () => {
       setIsFinished(true);
       setIsMusicPlaying(false); // Stop music on finish
       // Play a bark sound when finished!
-      const barkSound = new Audio('https://actions.google.com/sounds/v1/animals/dog_barking.ogg');
-      barkSound.play();
+      const successSound = new Audio('https://gfxsounds.com/wp-content/uploads/2023/11/Arcade-game-16-bit-or-8-bit-level-complete-win-success.mp3');
+      successSound.play();
     }
 
     return () => {
@@ -110,17 +112,19 @@ const App: React.FC = () => {
 
         {isFinished ? (
           <div className="flex flex-col items-center justify-center h-64">
-             <div className="text-6xl animate-bounce">✨</div>
+            <ToothCharacter isBrushing={false} />
             <p className="text-2xl sm:text-3xl font-bold text-green-600 mt-4">
               Bravo ! Tes dents sont toutes propres !
             </p>
           </div>
         ) : (
           <>
-            <div className="my-4 h-52 flex items-center justify-center">
-                <p className="text-2xl sm:text-3xl font-bold text-cyan-700 text-center">
-                    {isActive ? ZONE_DESCRIPTIONS[currentZone] : "Prêt(e) ?"}
-                </p>
+            <div className="my-4 h-52 flex flex-col items-center justify-around">
+              {!isActive && <ToothCharacter isBrushing={isActive} />}
+              <p className="text-2xl sm:text-3xl font-bold text-cyan-700 text-center px-4">
+                {isActive ? ZONE_DESCRIPTIONS[currentZone] : "Prêt(e) ?"}
+              </p>
+              {isActive && <MouthDiagram currentZone={currentZone} />}
             </div>
             <TimerCircle timeRemaining={timeRemaining} totalTime={TOTAL_TIME} />
           </>
